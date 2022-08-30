@@ -1,0 +1,10 @@
+management.endpoints.web.exposure.include=*
+management.info.env.enabled=true
+info.app.name=springboot demo
+info.app.description=description
+info.app.version=version
+
+# Include custom properties
+coach.name=test
+team.name=test team
+server.port=7070

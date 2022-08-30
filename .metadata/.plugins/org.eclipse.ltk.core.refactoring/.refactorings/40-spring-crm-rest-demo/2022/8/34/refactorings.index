@@ -1,0 +1,10 @@
+1661519966557	Rename package 'com.luv2code.springdemo.config'
+1661519988484	Rename package 'com.luv2code.springdemo.dao'
+1661520000802	Rename package 'com.luv2code.springdemo.entity'
+1661520009990	Rename package 'com.luv2code.springdemo.service'
+1661520028336	Rename package 'com.luv2code.springdemo'
+1661520739066	Delete element
+1661522785226	Rename type 'StudentRestExceptionHandler'
+1661522815976	Rename type 'StudentErrorResponse'
+1661525595036	Rename type 'StudentNotFoundException'
+1661528643802	Delete element

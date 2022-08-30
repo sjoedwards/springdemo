@@ -1,0 +1,14 @@
+package com.sjoedwards.springsecurity.demo.controller;
+
+public class LoginController {
+	
+	@Controller
+	public class LoginController {
+		@GetMapping("/showMyLoginPage" {
+			public String showMyLoginPage() {
+				return "plain-login;
+			}
+		})
+	}
+
+}

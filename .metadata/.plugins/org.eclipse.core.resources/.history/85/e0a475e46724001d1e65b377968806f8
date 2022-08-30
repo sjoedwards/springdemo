@@ -1,0 +1,5 @@
+package com.sjoedwards.springdemo.config;
+
+public class DemoAppConfig {
+
+}

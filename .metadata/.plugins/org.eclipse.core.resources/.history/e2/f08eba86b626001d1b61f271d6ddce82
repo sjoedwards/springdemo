@@ -1,0 +1,3 @@
+spring.datasource.url=jdbc:mysql://localhost:3306/spring_security_demo_bcrypt?useSSL=false;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true
+spring.datasource.username=root
+spring.datasource.password=hbstudent

@@ -1,0 +1,9 @@
+package com.sjoedwards.springdemo.config;
+
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	  
+	  protected void configure(HttpSecurity http){}
+	  
+	    http.csrf().disable();
+	  
+	}

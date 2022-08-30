@@ -1,0 +1,31 @@
+package com.sjoedwards.springsecurity.demo.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+
+@Configuration
+@EnableWebSecurity
+public class DemoSecurityConfig {
+
+	@Bean
+	public InMemoryUserDetailsManager userDetailsService() {
+	UserDetails theUser = User.withUsername("Reza")
+	        .password("{noop}reza").roles("USER").build();
+	UserDetails theManager = User.withUsername("frobese")
+	        .password("{noop}frobese").roles("MANAGER").build();
+	UserDetails theAdmin = User.withUsername("admin")
+	        .password("{noop}admin").roles("ADMIN").build();
+	return new InMemoryUserDetailsManager(theAdmin,theManager,theUser);
+	 
+	}
+		
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	    http.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())      
+	    .formLogin(form -> form.loginPage("/login")
+	    .loginProcessingUrl("/authenticateLogin").permitAll());
+	    return http.build();
+	}
+	}
+}

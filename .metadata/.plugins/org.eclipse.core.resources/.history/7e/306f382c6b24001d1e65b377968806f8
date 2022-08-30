@@ -1,0 +1,5 @@
+package com.sjoedwards.springdemo.entity;
+
+public class Student {
+
+}

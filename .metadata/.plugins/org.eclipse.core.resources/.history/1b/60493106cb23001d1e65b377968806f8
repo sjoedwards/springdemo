@@ -1,0 +1,42 @@
+package com.sjoedwards.springsecurity.demo.config;
+
+import java.util.logging.Logger;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+// This is basically the web version of the WEB-INF directory you've used in the past
+// This classpath:persistence-mysql.properties exists in main -> resources! So it can easily be picked up
+
+@Configuration
+@EnableWebMvc
+@PropertySource("classpath:persistence-mysql.properties")
+@ComponentScan(basePackages="com.sjoedwards.springsecurity.demo")
+public class DemoAppConfig {
+	
+	// set up variable to hold the properties
+	@Autowired
+	private Environment env;
+	
+	// setup a logger for diagnostics
+	private Logger logger = Logger.getLogger(getClass().getName())
+	
+	// define a bean for the view resolved
+	@Bean
+	public ViewResolver viewResolver() {
+		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+		
+		viewResolver.setPrefix("/WEB-INF/view/");
+		viewResolver.setSuffix(".jsp");
+		
+		return viewResolver;
+	}
+
+}

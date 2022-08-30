@@ -1,0 +1,5 @@
+package com.sjoedwards.springdemo.rest;
+
+public class StudentNotFound {
+
+}

@@ -1,0 +1,45 @@
+package com.sjoedwards.springsecurity.demo.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
+
+// This is where you setup the security filter - the enableWebSecurity annotation gets picked up by the initializer
+
+@Configuration
+@EnableWebSecurity
+public class DemoSecurityConfig {
+
+	@Bean
+	public InMemoryUserDetailsManager userDetailsService() {
+		// Have to use noop so it knows to use the default password encoder
+		UserDetails theUser = User.withUsername("test1").password("{noop}test123").roles("EMPLOYEE").build();
+		UserDetails theManager = User.withUsername("test2").password("{noop}test123").roles("EMPLOYEE", "MANAGER")
+				.build();
+		UserDetails theAdmin = User.withUsername("test3").password("{noop}test123").roles("EMPLOYEE", "ADMIN").build();
+		return new InMemoryUserDetailsManager(theAdmin, theManager, theUser);
+
+	}
+
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		// Any request must by authenticated
+		http.authorizeHttpRequests(authorize -> authorize.antMatchers("/").hasRole("EMPLOYEE")
+				.antMatchers("/leaders/**").hasRole("MANAGER")
+				.antMatchers("/systems/**").hasRole("ADMIN"))
+				// will resolve controller route showMyLoggingPage initially, and the post will
+				// call authenticateLogin - given to us for free by spring!. PermitAll means
+				// anyone can see the login page
+				.formLogin(form -> form.loginPage("/showMyLoginPage").loginProcessingUrl("/authenticateTheUser")
+						.permitAll())
+				.logout(logout -> logout.permitAll())
+				.exceptionHandling(handler -> handler.accessDeniedPage("/access-denied"));
+		return http.build();
+	}
+
+}

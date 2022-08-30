@@ -1,0 +1,9 @@
+package com.sjoedwards.springdemo.entity;
+
+public class Student {
+	private String lastName;
+	private String firstName;
+	public String {
+		
+	}
+}

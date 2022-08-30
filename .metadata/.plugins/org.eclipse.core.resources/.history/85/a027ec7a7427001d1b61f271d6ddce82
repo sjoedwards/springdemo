@@ -1,0 +1,14 @@
+package com.sjoedwards.springboot.thymeleafdemo.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.sjoedwards.springboot.thymeleafdemo.entity.Employee;
+
+public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
+	// no need to write any code
+	
+	// SpringDataJPA will look at the format of this method and create the appropriate query for you
+	// 'find all order by last name asc'
+	public List<Employee> findAllByOrderByLastnameAsc()
+
+}

@@ -1,0 +1,16 @@
+package com.sjoedwards.springboot.demo.mycoolapp.rest;
+
+public class FunRestController {
+
+	// Expose a basic endpoint to return hello world
+	
+	@Controller
+	
+	@RestController
+	public class FunRestController {
+		@GetMapping("/")
+		public String sayHello() { 
+			return "Hello World! Time on the server is" + LocalDateTime.now();
+		}
+	}
+}

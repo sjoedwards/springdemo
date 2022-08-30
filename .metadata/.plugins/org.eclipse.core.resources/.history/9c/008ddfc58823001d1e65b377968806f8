@@ -1,0 +1,16 @@
+package com.sjoedwards.springsecurity.demo.controller;
+
+import org.springframework.stereotype.Controller;
+
+public class LoginController {
+	
+	@Controller
+	public class LoginController {
+		
+		@GetMapping("/showMyLoginPage")
+		public String showMyLoginPage() {
+			return "plain-login;
+		}
+		}
+
+}

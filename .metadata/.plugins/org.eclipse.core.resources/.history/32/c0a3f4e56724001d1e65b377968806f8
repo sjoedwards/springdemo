@@ -1,0 +1,8 @@
+package com.sjoedwards.springdemo.config;
+
+@Configuration
+@EnableWebMvc
+@ComponentScan("com.sjoedwards.springdemo")
+public class DemoAppConfig {
+
+}

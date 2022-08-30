@@ -1,0 +1,9 @@
+package com.sjoedwards.springdemo.rest;
+
+public class StudentErrorResponse {
+	
+	private int status;
+	private String message;
+	private long timestamp;
+
+}

@@ -1,0 +1,13 @@
+package com.sjoedwards.springboot.cruddemo.rest;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class EmployeeRestController {
+	
+	// quick and dirty - inject the DAO without the service
+	
+	// expose /employees and return list of employees
+	
+
+}

@@ -1,0 +1,5 @@
+package com.sjoedwards.jackson.json.demo;
+
+public class Address {
+
+}

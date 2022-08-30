@@ -1,0 +1,26 @@
+package com.sjoedwards.springsecurity.demo.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+// This is where you setup the security filter - the enableWebSecurity annotation gets picked up by the initializer
+
+@Configuration
+@EnableWebSecurity
+public class DemoSecurityConfig {
+
+
+
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		// Any request must by authenticated
+		http.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
+				// will resolve controller route showMyLoggingPage initially, and the post will
+				// call authenticateLogin - given to us for free by spring!. PermitAll means
+				// anyone can see the login page
+				.formLogin(form -> form.loginPage("/showMyLoginPage").loginProcessingUrl("/authenticateTheUser")
+						.permitAll()).logout().permitAll();
+		return http.build();
+	}
+
+}

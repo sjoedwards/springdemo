@@ -1,0 +1,5 @@
+package com.sjoedwards.springboot.cruddemo.service;
+
+public interface EmployeeService {
+
+}

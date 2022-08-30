@@ -1,0 +1,32 @@
+package com.sjoedwards.springdemo.rest;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sjoedwards.springdemo.entity.Customer;
+import com.sjoedwards.springdemo.service.CustomerService;
+
+@RestController
+@RequestMapping("/api")
+public class CustomerRestController {
+	// autowiring the customerService
+	@Autowired
+	private CustomerService customerService;
+	
+	// Add mapping for getcustomers
+	
+	@RequestMapping("/customers")
+	public List<Customer> getCustomers() {
+		return customerService.getCustomers();
+	}
+	
+	// Get customer by ID
+	
+	@RequestMapping("/customer")
+	public Customer getCustomerById() {
+		return customerService.getCustomer()
+	}
+}

@@ -1,0 +1,8 @@
+package com.sjoedwards.springdemo.rest;
+
+
+@RestController
+@RequestMapping("/test")
+public class DemoRestController {
+
+}

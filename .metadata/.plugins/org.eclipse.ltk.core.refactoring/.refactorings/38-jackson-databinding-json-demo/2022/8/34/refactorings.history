@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;langauges&apos; in &apos;com.sjoedwards.jackson.json.demo.Student&apos; to &apos;languages&apos;&#x0A;- Original project: &apos;38-jackson-databinding-json-demo&apos;&#x0A;- Original element: &apos;com.sjoedwards.jackson.json.demo.Student.langauges&apos;&#x0A;- Renamed element: &apos;com.sjoedwards.jackson.json.demo.Student.languages&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;langauges&apos;" flags="589826" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.sjoedwards.jackson.json.demo{Student.java[Student^langauges" name="languages" references="true" setter="false" stamp="1661413372626" textual="false" version="1.0"/>
+</session>

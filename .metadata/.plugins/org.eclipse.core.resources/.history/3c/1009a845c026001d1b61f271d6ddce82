@@ -1,0 +1,74 @@
+package com.sjoedwards.springboot.cruddemo.rest;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sjoedwards.springboot.cruddemo.entity.Employee;
+import com.sjoedwards.springboot.cruddemo.service.EmployeeService;
+
+@RestController
+@RequestMapping("/api")
+public class EmployeeRestController {
+
+	private EmployeeService employeeService;
+
+	// quick and dirty - inject the DAO without the service
+	@Autowired
+	public EmployeeRestController(EmployeeService theEmployeeService) {
+		employeeService = theEmployeeService;
+	}
+
+	// expose /employees and return list of employees
+	@GetMapping("/employees")
+	public List<Employee> findAll() {
+		return employeeService.findAll();
+	}
+
+	@GetMapping("/employees/{id}")
+	public Employee findById(@PathVariable int id) {
+		Employee employee = employeeService.findById(id);
+		if (employee == null) {
+			throw new RuntimeException("Employee id not found - " + id);
+		}
+		return employee;
+	}
+
+	@PostMapping("/employees")
+	public void save(@Valid @RequestBody Employee theEmployee) {
+		
+		// Have to do this in order to force a new employee to be saved
+		theEmployee.setId(0);
+		employeeService.save(theEmployee);
+	}
+	
+	@PutMapping("/employees")
+	public void update(@Valid @RequestBody Employee theEmployee) {
+		
+		// Have to do this in order to force a new employee to be saved
+		employeeService.save(theEmployee);
+	}
+
+	@DeleteMapping("/employees/{employeeId}")
+	public ResponseEntity deleteById(@PathVariable int employeeId) {
+		Employee employee = employeeService.findById(employeeId);
+		if (employee == null) {
+			throw new RuntimeException("Employee not found");
+		}
+		employeeService.deleteById(employeeId);
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
+	}
+
+}

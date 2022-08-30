@@ -1,0 +1,6 @@
+
+management.endpoints.web.exposure.exclude=health,info
+management.info.env.enabled=true
+info.app.name=springboot demo
+info.app.description=description
+info.app.version=version

@@ -1,0 +1,22 @@
+package com.sjoedwards.springboot.thymeleafdemo.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/employees")
+public class EmployeeController {
+	
+	// load employee data
+	
+	private List<Employee> theEmployees;
+	
+	@PostContruct
+	private void loadData() {
+		// create employees
+		Employee emp1 = new Employee(1, "one", "oneSur", "one@test.com");
+		
+		// create the list
+	}
+
+}

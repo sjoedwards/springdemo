@@ -1,0 +1,49 @@
+package com.sjoedwards.springboot.cruddemo.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.sjoedwards.springboot.cruddemo.dao.EmployeeDAO;
+import com.sjoedwards.springboot.cruddemo.dao.EmployeeRepository;
+import com.sjoedwards.springboot.cruddemo.entity.Employee;
+
+@Service
+public class EmployeeServiceImpl implements EmployeeService {
+
+	private EmployeeRepository employeeDAO;
+
+	// Qualifier essentially tells the autowiring which implimentation to inject if theres two!
+	@Autowired
+	public EmployeeServiceImpl(@Qualifier("employeeDaoJpaImpl") EmployeeDAO theEmployeeDAO) {
+		employeeDAO = theEmployeeDAO;
+	}
+
+	@Transactional
+	@Override
+	public List<Employee> findAll() {
+		return employeeDAO.findAll();
+	}
+
+	@Transactional
+	@Override
+	public Employee findById(int theId) {
+		return employeeDAO.findById(theId);
+	}
+
+	@Transactional
+	@Override
+	public void save(Employee theEmployee) {
+		employeeDAO.save(theEmployee);
+	}
+
+	@Override
+	@Transactional
+	public void deleteById(int theId) {
+		employeeDAO.deleteById(theId);
+	}
+
+}

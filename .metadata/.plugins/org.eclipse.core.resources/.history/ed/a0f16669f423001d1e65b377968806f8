@@ -1,0 +1,51 @@
+package com.sjoedwards.springsecurity.demo.config;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
+
+// This is where you setup the security filter - the enableWebSecurity annotation gets picked up by the initializer
+
+@Configuration
+@EnableWebSecurity
+public class DemoSecurityConfig {
+	
+	// Will autowire the bean - public DataSource securityDataSource() {
+	@Autowired
+	private DataSource securityDataSource;
+
+	@Autowired
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+	    auth
+	        .jdbcAuthentication()
+	        .dataSource(restDataSource)
+	        .usersByUsernameQuery(getUserQuery())
+	        .authoritiesByUsernameQuery(getAuthoritiesQuery());
+	}
+
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		// Any request must by authenticated
+		http.authorizeHttpRequests(authorize -> authorize.antMatchers("/").hasRole("EMPLOYEE")
+				.antMatchers("/leaders/**").hasRole("MANAGER")
+				.antMatchers("/systems/**").hasRole("ADMIN"))
+				// will resolve controller route showMyLoggingPage initially, and the post will
+				// call authenticateLogin - given to us for free by spring!. PermitAll means
+				// anyone can see the login page
+				.formLogin(form -> form.loginPage("/showMyLoginPage").loginProcessingUrl("/authenticateTheUser")
+						.permitAll())
+				.logout(logout -> logout.permitAll())
+				.exceptionHandling(handler -> handler.accessDeniedPage("/access-denied"));
+		return http.build();
+	}
+
+}

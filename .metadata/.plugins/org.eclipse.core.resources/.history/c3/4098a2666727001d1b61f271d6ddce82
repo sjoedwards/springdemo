@@ -1,0 +1,13 @@
+package com.sjoedwards.springboot.thymeleafdemo.controller;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class DemoController {
+	// Create mapping for "/hello"
+	
+	@GetMapping("/hello")
+	public String sayHello(Model theModel) { 
+		theModel.addAttribute("theData", new java.util.Date())
+	}
+}

@@ -1,0 +1,53 @@
+package com.sjoedwards.springdemo.rest;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+@ControllerAdvice
+public class CustomerRestExceptionHandler extends ResponseEntityExceptionHandler {
+	// Add an exception handler using @ExceptionHandler
+	@ExceptionHandler
+	public ResponseEntity<CustomerErrorResponse> handleGeneralException(IllegalArgumentException exp) {
+				
+		HttpStatus status= HttpStatus.BAD_REQUEST;
+	
+		
+		// create StudentErrorResponse
+		CustomerErrorResponse error = new CustomerErrorResponse();
+		error.setStatus(status.value());
+		error.setMessage(exp.getMessage());
+		error.setTimestamp(System.currentTimeMillis());
+		
+		// Return ResponseEntity
+		return new ResponseEntity<>(error, status);
+	}
+
+	
+//	 Add another exception handler
+	@ExceptionHandler
+	public ResponseEntity<CustomerErrorResponse> handleGeneralException(Exception exp) {
+				
+		HttpStatus status;
+		
+		ResponseStatus annotationValue = exp.getClass().getAnnotation(ResponseStatus.class);
+		
+		if(annotationValue != null) {
+			status = annotationValue.value();
+		} else {
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		
+		// create StudentErrorResponse
+		CustomerErrorResponse error = new CustomerErrorResponse();
+		error.setStatus(status.value());
+		error.setMessage(exp.getMessage());
+		error.setTimestamp(System.currentTimeMillis());
+		
+		// Return ResponseEntity
+		return new ResponseEntity<>(error, status);
+	}
+}

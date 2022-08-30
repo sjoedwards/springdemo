@@ -1,0 +1,7 @@
+package com.sjoedwards.springboot.cruddemo.rest;
+
+@Controller
+public class EmployeeRestController {
+	
+
+}
